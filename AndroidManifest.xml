@@ -19,6 +19,7 @@
         <uses-library android:name="com.google.android.maps"/>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MapViewActivity"></activity>
-        <activity android:name="NewsListActivity"></activity>
+        <activity android:name="MapViewActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="NewsListActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
