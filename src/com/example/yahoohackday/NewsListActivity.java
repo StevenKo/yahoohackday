@@ -58,7 +58,6 @@ public class NewsListActivity extends Activity {
 	private void setListtener() {
 		listviewNews.setAdapter((ListAdapter) new NewsListAdapter(NewsListActivity.this, newsList));
 		listviewNews.setOnItemClickListener(new OnItemClickListener() {
-			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				/*
 				Intent intent = new Intent();
