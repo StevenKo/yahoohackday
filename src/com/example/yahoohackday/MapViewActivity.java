@@ -113,7 +113,7 @@ public class MapViewActivity extends MapActivity{
 //			}
 //			
 //		} 
->>>>>>> 75ae46107558ab417004603cfd0f65a7a57001ae
+
 	}
 
 	@Override
