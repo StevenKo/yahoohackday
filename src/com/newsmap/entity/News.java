@@ -1,20 +1,21 @@
 package com.newsmap.entity;
 
 public class News {
-	int id;
-	String title;
-	String source;
-	String content;
-	String url;
-	String locationName;
-	double longitude;
-	double latitude;
+	private int id;
+	private String title;
+	private String source;
+	private String content;
+	private String url;
+	private String locationName;
+	private double longitude;
+	private double latitude;
+	private int newsCount;
 	
-	public News(String locationName, double longitude, double latitude) {
-		new News(0, "", "", "", "", locationName, longitude, latitude);
+	public News(String locationName, double longitude, double latitude, int newsCount) {
+		new News(0, "", "", "", "", locationName, longitude, latitude, newsCount);
 	}
 	
-	public News(int id, String title, String source, String content, String url, String locationName, double longitude, double latitude) {
+	public News(int id, String title, String source, String content, String url, String locationName, double longitude, double latitude, int newsCount) {
 		this.id = id;
 		this.title = title;
 		this.source = source;
@@ -23,6 +24,7 @@ public class News {
 		this.locationName = locationName;
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.newsCount = newsCount;
 	}
 	
 	public int getID() {
@@ -73,4 +75,11 @@ public class News {
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
+	public int getNewsCount() {
+		return newsCount;
+	}
+	public void setNewsCount(int newsCount) {
+		this.newsCount = newsCount;
+	}
+	
 }
