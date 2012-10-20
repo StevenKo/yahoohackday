@@ -9,13 +9,17 @@ import android.location.Location;
 import android.location.LocationManager;
 
 import android.os.Bundle;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.sqlite.SQLite;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.newsmap.entity.News;
 import com.readystatesoftware.maps.OnSingleTapListener;
 import com.readystatesoftware.maps.TapControlledMapView;
 
@@ -34,6 +38,8 @@ public class MapViewActivity extends MapActivity{
 	private double currentLongitude;
 	private double currentLatitude;
 	private Location currentLocation;
+	
+	private ArrayList<News> newsList;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,19 +59,30 @@ public class MapViewActivity extends MapActivity{
 		
 		mapOverlays = mapView.getOverlays();
 		
+		SQLite sqilte = new SQLite(this);
+		newsList = sqilte.getLocationList();
+		
 		//設定正確的位置和中心點
 		getCurrentLocation();
 		setMapView();
 		
 		
 		// first overlay
-		drawable = getResources().getDrawable(R.drawable.ic_launcher);
-		itemizedOverlay = new SimpleItemizedOverlay(drawable, mapView);
+		drawable = getResources().getDrawable(R.drawable.pin);
+		
+		itemizedOverlay = new SimpleItemizedOverlay(drawable, mapView, this);
 		// set iOS behavior attributes for overlay
 		itemizedOverlay.setShowClose(false);
 		itemizedOverlay.setShowDisclosure(true);
 		itemizedOverlay.setSnapToCenter(true);
+		for (int i = 0; i < newsList.size(); i++) {
+			GeoPoint point = new GeoPoint((int)(newsList.get(i).getLatitude()*1E6),(int)(newsList.get(i).getLongitude()*1E6));
+			OverlayItem overlayItem = new OverlayItem(point, newsList.get(i).getLocationName(), "這邊總共有" + newsList.get(i).getNewsCount() + "則新聞");
+			itemizedOverlay.addOverlay(overlayItem);
+		}
 		
+		
+		/*
 		GeoPoint point = new GeoPoint((int)(51.5174723*1E6),(int)(-0.0899537*1E6));
 		OverlayItem overlayItem = new OverlayItem(point, "Tomorrow Never Dies (1997)", 
 				"(M gives Bond his mission in Daimler car)");
@@ -76,6 +93,7 @@ public class MapViewActivity extends MapActivity{
 				"(Interiors Russian defence ministry council chambers in St Petersburg)");		
 		itemizedOverlay.addOverlay(overlayItem2);
 		
+		*/
 		mapOverlays.add(itemizedOverlay);
 		
 //		// second overlay
