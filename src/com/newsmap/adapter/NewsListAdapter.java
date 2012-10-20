@@ -22,22 +22,18 @@ public class NewsListAdapter extends BaseAdapter{
 		this.mContext = mContext;
 	}
 
-	@Override
 	public int getCount() {
 		return newsList.size();
 	}
 
-	@Override
 	public Object getItem(int position) {
 		return newsList.get(position);
 	}
 
-	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater myInflater = LayoutInflater.from(mContext);
 		View converView = myInflater.inflate(R.layout.listview_news_item, null);

@@ -1,12 +1,9 @@
 package com.example.yahoohackday;
 
 import com.example.sqlite.SQLite;
-import com.newsmap.entity.News;
-
 import android.os.Bundle;
 import android.app.TabActivity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;

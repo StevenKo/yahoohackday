@@ -1,29 +1,17 @@
 package com.example.yahoohackday;
 
 
-import android.app.Activity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-
 import java.util.List;
-
-
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import com.readystatesoftware.maps.OnSingleTapListener;
 import com.readystatesoftware.maps.TapControlledMapView;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.MotionEvent;
 
 public class MapViewActivity extends MapActivity{
@@ -45,7 +33,6 @@ public class MapViewActivity extends MapActivity{
 		
 		// dismiss balloon upon single tap of MapView (iOS behavior) 
 		mapView.setOnSingleTapListener(new OnSingleTapListener() {		
-			@Override
 			public boolean onSingleTap(MotionEvent e) {
 				itemizedOverlay.hideAllBalloons();
 				return true;
