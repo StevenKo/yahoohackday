@@ -1,7 +1,5 @@
 package com.example.yahoohackday;
 
-import java.util.ArrayList;
-
 import com.example.sqlite.SQLite;
 import com.newsmap.entity.News;
 
