@@ -8,12 +8,13 @@
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         />
-    <!-- <TextView android:id="@+id/textview_tabicon"
+    <TextView android:id="@+id/textview_tabicon"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
-        android:textSize="15dp"
-        android:visibility="gone"
-        /> -->
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        />
 </RelativeLayout>
