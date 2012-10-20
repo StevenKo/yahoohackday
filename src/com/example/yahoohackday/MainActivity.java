@@ -1,8 +1,12 @@
 package com.example.yahoohackday;
 
+import com.example.sqlite.SQLite;
+import com.newsmap.entity.News;
+
 import android.os.Bundle;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +21,7 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
 	private TabHost.TabSpec spec;
 	private TextView topbar_text;
 	private LinearLayout topbarLayout;
-	
+	private SQLite sqlite;
 	public static String TAG = "MovieTabActivities";
 	
 	/** Called when the activity is first created. */
@@ -26,8 +30,9 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        topbarLayout = (LinearLayout) findViewById(R.id.topbar);
+        sqlite = new SQLite(this);
         
+        topbarLayout = (LinearLayout) findViewById(R.id.topbar);        
         topbar_text = (TextView)findViewById(R.id.topbar_text);
         topbar_text.setText("AllYaNu");
         
