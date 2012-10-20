@@ -17,7 +17,9 @@ package com.example.yahoohackday;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
@@ -30,10 +32,12 @@ public class SimpleItemizedOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
 	private ArrayList<OverlayItem> m_overlays = new ArrayList<OverlayItem>();
 	private Context c;
+	private Activity activity;
 	
-	public SimpleItemizedOverlay(Drawable defaultMarker, MapView mapView) {
+	public SimpleItemizedOverlay(Drawable defaultMarker, MapView mapView, Activity activity) {
 		super(boundCenter(defaultMarker), mapView);
 		c = mapView.getContext();
+		this.activity = activity;
 	}
 
 	public void addOverlay(OverlayItem overlay) {
@@ -53,8 +57,16 @@ public class SimpleItemizedOverlay extends BalloonItemizedOverlay<OverlayItem> {
 
 	@Override
 	protected boolean onBalloonTap(int index, OverlayItem item) {
-		Toast.makeText(c, "onBalloonTap for overlay index " + index,
-				Toast.LENGTH_LONG).show();
+		//Toast.makeText(c, "onBalloonTap for overlay index " + index,
+		//Toast.LENGTH_LONG).show();
+		
+		String locationName = item.getTitle();
+		
+		Intent intent = new Intent();
+		intent.putExtra("location_name", locationName);
+		intent.setClass(c, NewsListActivity.class);
+		activity.startActivity(intent);
+		
 		return true;
 	}
 	

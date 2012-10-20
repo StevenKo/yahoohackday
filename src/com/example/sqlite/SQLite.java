@@ -171,7 +171,7 @@ public class SQLite extends SQLiteOpenHelper {
 		            cursor.getString(1),
 		            cursor.getString(9),
 		            cursor.getFloat(5),
-		            cursor.getFloat(6));
+		            cursor.getFloat(6), 0);
             news_lst.add(news);
         }
 
@@ -182,14 +182,16 @@ public class SQLite extends SQLiteOpenHelper {
 	
 	public ArrayList<News> getLocationList() throws SQLException {
 		openDataBase();
-		ArrayList<News> news_lst = new ArrayList<News>(10);  
-		Cursor cursor = db.rawQuery("SELECT location_name, longitude, latitude FROM " + NewsTable, null); 
+		ArrayList<News> news_lst = new ArrayList<News>(10);
+		//SELECT DISTINCT  location_name, longitude, latitude, COUNT(id) AS count FROM news GROUP BY location_name
+		Cursor cursor = db.rawQuery("SELECT location_name, longitude, latitude, COUNT(id) FROM " + NewsTable + " GROUP BY location_name", null); 
         while (cursor.moveToNext()){  
             News news = new News(  
 			        0, "", "", "", "",
 			        cursor.getString(0),
 			        cursor.getFloat(1),
-			        cursor.getFloat(2));
+			        cursor.getFloat(2),
+			        cursor.getInt(3));
             news_lst.add(news);
         }
 
@@ -200,7 +202,7 @@ public class SQLite extends SQLiteOpenHelper {
 	public ArrayList<News> getNewsList(String locationName) throws SQLException {
 		openDataBase();
 		ArrayList<News> news_lst = new ArrayList<News>(10);  
-		Cursor cursor = db.rawQuery("SELECT * FROM " + NewsTable + "WHERE location_name = \'" + locationName + "\'", null); 
+		Cursor cursor = db.rawQuery("SELECT * FROM " + NewsTable + " WHERE location_name = \'" + locationName + "\'", null); 
         while (cursor.moveToNext()){  
             News news = new News(  
             		cursor.getInt(0),
@@ -210,7 +212,7 @@ public class SQLite extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(9),
                     cursor.getFloat(5),
-                    cursor.getFloat(6));
+                    cursor.getFloat(6), 0);
             news_lst.add(news);
         }
 

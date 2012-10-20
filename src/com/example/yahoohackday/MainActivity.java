@@ -1,24 +1,19 @@
 package com.example.yahoohackday;
 
-import com.example.sqlite.SQLite;
 import android.os.Bundle;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.TabHost.OnTabChangeListener;
 
-public class MainActivity extends TabActivity implements OnTabChangeListener{
+public class MainActivity extends TabActivity {
 
 	private TabHost tabHost;
 	private TabHost.TabSpec spec;
-	private TextView topbar_text;
-	private LinearLayout topbarLayout;
-	private SQLite sqlite;
 	public static String TAG = "MovieTabActivities";
 	
 	/** Called when the activity is first created. */
@@ -26,13 +21,6 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        sqlite = new SQLite(this);
-        
-        topbarLayout = (LinearLayout) findViewById(R.id.topbar);        
-        topbar_text = (TextView)findViewById(R.id.topbar_text);
-        topbar_text.setText("AllYaNu");
-        
         tabHost = getTabHost();  // The activity TabHost
         tabHost.setup();
         tabHost.setCurrentTab(0);
@@ -42,8 +30,6 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
         tab3();
         tab4();
         tab5();
-        
-        tabHost.setOnTabChangedListener(this);
     }
     
     @Override
@@ -72,10 +58,10 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
     
     private void tab1() {
     	View ActivitysTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-    	//ImageView image = (ImageView) ActivitysTab.findViewById(R.id.imageview_tabicon);
-		//image.setImageResource(R.drawable.calendar_blank);
+    	ImageView image = (ImageView) ActivitysTab.findViewById(R.id.imageview_tabicon);
+		image.setImageResource(R.drawable.tab_background_map);
 		TextView ActivitysTabLabel = (TextView) ActivitysTab.findViewById(R.id.textview_tabicon);
-		ActivitysTabLabel.setText("電影打卡");
+		ActivitysTabLabel.setText("新聞地圖");
 		
 		// Create an Intent to launch an Activity for the tab (to be reused)
 		// Initialize a TabSpec for each tab and add it to the TabHost
@@ -88,10 +74,10 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
     
     private void tab2() {
     	View MyListTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-    	//ImageView image = (ImageView) MyListTab.findViewById(R.id.imageview_tabicon);
-        //image.setImageResource(R.drawable.notebook);
+    	ImageView image = (ImageView) MyListTab.findViewById(R.id.imageview_tabicon);
+        image.setImageResource(R.drawable.tab_background_time);
         TextView MyListTabLabel = (TextView) MyListTab.findViewById(R.id.textview_tabicon);
-        MyListTabLabel.setText("電影櫃");
+        MyListTabLabel.setText("歷史瀏覽");
         
         Intent intentMyList = new Intent().setClass(this, MapViewActivity.class);
         spec = tabHost.newTabSpec("tab2")
@@ -102,10 +88,10 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
     
     private void tab3() {
     	View CreateTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-    	//ImageView image = (ImageView) CreateTab.findViewById(R.id.imageview_tabicon);
-        //image.setImageResource(R.drawable.users);
+    	ImageView image = (ImageView) CreateTab.findViewById(R.id.imageview_tabicon);
+        image.setImageResource(R.drawable.tab_background_fav);
         TextView CreateTabLabel = (TextView) CreateTab.findViewById(R.id.textview_tabicon);
-        CreateTabLabel.setText("朋友動態");
+        CreateTabLabel.setText("我的最愛");
         
         Intent intentCreate = new Intent().setClass(this, MapViewActivity.class);
         spec = tabHost.newTabSpec("tab3")
@@ -116,10 +102,10 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
 
     private void tab4() {
     	View ActivitysTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-    	//ImageView image = (ImageView) ActivitysTab.findViewById(R.id.imageview_tabicon);
-		//image.setImageResource(R.drawable.search_dark);
+    	ImageView image = (ImageView) ActivitysTab.findViewById(R.id.imageview_tabicon);
+		image.setImageResource(R.drawable.tab_background_search);
 		TextView ActivitysTabLabel = (TextView) ActivitysTab.findViewById(R.id.textview_tabicon);
-		ActivitysTabLabel.setText("電影搜尋");
+		ActivitysTabLabel.setText("搜尋新聞");
     	        
         Intent intentList = new Intent().setClass(this, MapViewActivity.class);
 		intentList.putExtra("check", false);
@@ -131,10 +117,10 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
     
     private void tab5(){
     	View ActivitysTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-    	//ImageView image = (ImageView) ActivitysTab.findViewById(R.id.imageview_tabicon);
-		//image.setImageResource(R.drawable.info);
+    	ImageView image = (ImageView) ActivitysTab.findViewById(R.id.imageview_tabicon);
+		image.setImageResource(R.drawable.tab_background_more);
 		TextView ActivitysTabLabel = (TextView) ActivitysTab.findViewById(R.id.textview_tabicon);
-		ActivitysTabLabel.setText("電影報");
+		ActivitysTabLabel.setText("更多");
     	        
 		Intent intentList = new Intent().setClass(this, MapViewActivity.class);
         spec = tabHost.newTabSpec("tab5")
@@ -142,24 +128,4 @@ public class MainActivity extends TabActivity implements OnTabChangeListener{
         				.setContent(intentList);
         tabHost.addTab(spec);
     }
-    
-    public void onTabChanged(String tabId) {
-		if(tabId == "tab1") {
-			topbar_text.setText("電影打卡");
-			topbarLayout.setVisibility(View.VISIBLE);
-		} else if (tabId == "tab2") {
-			topbar_text.setText("電影櫃");
-			topbarLayout.setVisibility(View.VISIBLE);
-		} else if (tabId == "tab3") { 
-			topbar_text.setText("朋友動態");
-			topbarLayout.setVisibility(View.VISIBLE);
-		} else if (tabId == "tab4") {
-			topbar_text.setText("電影搜尋");
-			topbarLayout.setVisibility(View.VISIBLE);
-		} else if(tabId == "tab5") {
-			topbar_text.setText("電影報");
-			topbarLayout.setVisibility(View.VISIBLE);
-		}
-		
-	}
 }
