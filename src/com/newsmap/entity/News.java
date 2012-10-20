@@ -1,6 +1,7 @@
 package com.newsmap.entity;
 
 public class News {
+	int id;
 	String title;
 	String source;
 	String content;
@@ -10,10 +11,11 @@ public class News {
 	double latitude;
 	
 	public News(String locationName, double longitude, double latitude) {
-		new News("", "", "", "", locationName, longitude, latitude);
+		new News(0, "", "", "", "", locationName, longitude, latitude);
 	}
 	
-	public News(String title, String source, String content, String url, String locationName, double longitude, double latitude) {
+	public News(int id, String title, String source, String content, String url, String locationName, double longitude, double latitude) {
+		this.id = id;
 		this.title = title;
 		this.source = source;
 		this.content = content;
@@ -23,6 +25,12 @@ public class News {
 		this.latitude = latitude;
 	}
 	
+	public int getID() {
+		return id;
+	}
+	public void setID(int id) {
+		this.id = id;
+	}
 	public String getTitle() {
 		return title;
 	}
