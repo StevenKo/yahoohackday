@@ -4,6 +4,8 @@ package com.example.yahoohackday;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,10 @@ public class MapViewActivity extends MapActivity{
 	Drawable drawable2;
 	SimpleItemizedOverlay itemizedOverlay;
 	SimpleItemizedOverlay itemizedOverlay2;
+	
+	private double currentLongitude;
+	private double currentLatitude;
+	private Location currentLocation;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,11 @@ public class MapViewActivity extends MapActivity{
 		});
 		
 		mapOverlays = mapView.getOverlays();
+		
+		//設定正確的位置和中心點
+		getCurrentLocation();
+		setMapView();
+		
 		
 		// first overlay
 		drawable = getResources().getDrawable(R.drawable.ic_launcher);
@@ -114,6 +125,27 @@ public class MapViewActivity extends MapActivity{
 //			
 //		} 
 
+	}
+	
+	private void getCurrentLocation() {
+		LocationManager locMan = (LocationManager) this.getSystemService(this.LOCATION_SERVICE);
+		Location location = locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (location == null) {
+			location = locMan.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		}
+		currentLocation = location;
+		
+		currentLongitude = currentLocation.getLongitude();
+		currentLatitude = currentLocation.getLatitude();
+	}
+	
+	private void setMapView() {
+		int intZoomLevel = 17;
+		GeoPoint geoPoint = new GeoPoint((int) (currentLatitude * 1E6), (int) (currentLongitude * 1E6));
+		mapView.displayZoomControls(true);
+		MapController controller = mapView.getController();
+		controller.animateTo(geoPoint);
+		controller.setZoom(intZoomLevel);		
 	}
 
 	@Override
